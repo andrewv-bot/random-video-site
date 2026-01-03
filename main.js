@@ -6,11 +6,21 @@ const videos = [
   "videos/v5.mp4",
 ];
 
-function pickRandom(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+function pickDifferentVideo(videoList) {
+  const last = sessionStorage.getItem("lastVideo");
+  let chosen = videoList[Math.floor(Math.random() * videoList.length)];
+
+  // If there was a last choice and there’s more than 1 video, re-roll until different
+  if (last && videoList.length > 1) {
+    while (chosen === last) {
+      chosen = videoList[Math.floor(Math.random() * videoList.length)];
+    }
+  }
+
+  sessionStorage.setItem("lastVideo", chosen);
+  return chosen;
 }
 
 const player = document.getElementById("player");
-const chosen = pickRandom(videos);
-
+const chosen = pickDifferentVideo(videos);
 player.src = chosen;
