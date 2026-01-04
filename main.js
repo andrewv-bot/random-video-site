@@ -10,7 +10,6 @@ function pickDifferentVideo(videoList) {
   const last = sessionStorage.getItem("lastVideo");
   let chosen = videoList[Math.floor(Math.random() * videoList.length)];
 
-  // If there was a last choice and there’s more than 1 video, re-roll until different
   if (last && videoList.length > 1) {
     while (chosen === last) {
       chosen = videoList[Math.floor(Math.random() * videoList.length)];
@@ -22,5 +21,17 @@ function pickDifferentVideo(videoList) {
 }
 
 const player = document.getElementById("player");
-const chosen = pickDifferentVideo(videos);
-player.src = chosen;
+const unmuteBtn = document.getElementById("unmuteBtn");
+
+player.src = pickDifferentVideo(videos);
+
+// try to start playback (muted autoplay)
+player.play().catch(() => {
+  // some browsers wait; user click unmute will start it
+});
+
+unmuteBtn.addEventListener("click", () => {
+  player.muted = false;
+  unmuteBtn.style.display = "none";
+  player.play().catch(() => {});
+});

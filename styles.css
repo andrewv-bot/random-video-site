@@ -1,33 +1,77 @@
 html, body {
   height: 100%;
   margin: 0;
+  background: #000;
+  color: #fff;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
 }
 
 .wrap {
-  min-height: 100%;
-  display: grid;
-  place-items: center;
-  padding: 24px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 .video-card {
-  width: min(900px, 100%);
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.overlay-text {
+  font-size: 22px;
+  font-weight: 650;
+  text-align: center;
+  margin: 0;
+}
+
+/* wrapper so the button can sit on top of the video */
+.video-wrap {
+  position: relative;
 }
 
 .player {
   width: 100%;
-  border-radius: 16px;
+  height: 60vh;                       /* ensures it shows even before metadata loads */
+  max-height: calc(100vh - 220px);    /* prevents scroll */
   background: #000;
+  border-radius: 16px;
+  object-fit: contain;                /* preserve aspect ratio, no crop */
 }
 
-.overlay-text {
-  font-size: 24px;
-  font-weight: 650;
-  margin-bottom: 12px;
+/* big unmute button centered over the video */
+.unmute-btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  font-size: 22px;
+  font-weight: 800;
+  padding: 18px 26px;
+  border-radius: 999px;
+
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  border: 2px solid #fff;
+
+  cursor: pointer;
+}
+
+.unmute-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
 }
 
 .hint {
-  margin-top: 10px;
-  opacity: 0.75;
+  margin: 0;
+  opacity: 0.85;
+  text-align: center;
+  font-size: 14px;
 }
+
+.hint a { color: #fff; text-decoration: none; }
+.hint a:hover { text-decoration: underline; }
